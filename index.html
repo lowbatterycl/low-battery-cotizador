@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LowBattery | Cotiza tu iPhone</title>
+<style>
+:root{--bg:#080b12;--panel:#111827;--line:#253247;--muted:#9caec5;--text:#f5f7fb;--blue:#60a5fa;--accent:#2563eb;--green:#22c55e}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 80% 0%,#162c52 0,transparent 45%),var(--bg);font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;color:var(--text);min-height:100vh;padding:22px 14px}
+main{max-width:700px;margin:auto}.brand{letter-spacing:3px;font-size:12px;color:#93c5fd;font-weight:800;margin:10px 0 30px}.brand span{color:#fff}h1{font-size:clamp(30px,7vw,46px);line-height:1.05;margin:0 0 10px;letter-spacing:-1.5px}p{color:var(--muted);line-height:1.5}.card{background:rgba(17,24,39,.92);border:1px solid var(--line);border-radius:20px;padding:20px;margin:20px 0;box-shadow:0 15px 50px #0003}.step{margin-bottom:19px}.step:last-child{margin-bottom:0}label,.label{display:block;font-weight:650;margin-bottom:9px}select,input[type=number]{width:100%;background:#0b1220;color:white;border:1px solid #314159;padding:14px;border-radius:12px;font-size:16px}select:focus{outline:2px solid #60a5fa}input[type=range]{width:100%;accent-color:var(--blue)}.rangeLine{display:flex;justify-content:space-between;align-items:center}.rangeLine strong{color:#bfdbfe}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.checks{display:grid;grid-template-columns:1fr 1fr;gap:9px}.check{border:1px solid #314159;padding:12px;border-radius:12px;display:flex;gap:8px;align-items:center;color:#e5e7eb;font-size:14px}.check input{accent-color:var(--blue)}button{border:0;border-radius:14px;padding:15px 17px;font-size:16px;font-weight:750;cursor:pointer;width:100%;background:var(--green);color:#05200d}.result{display:none;text-align:center;padding:22px 8px}.result small{color:#a7f3d0;letter-spacing:1.5px;font-weight:700}.price{font-size:clamp(38px,9vw,54px);font-weight:850;margin:10px 0;color:#86efac}.result p{margin:5px 0 20px}.note{font-size:12px;color:#8495ab}.footer{font-size:12px;color:#6b7d94;text-align:center;padding:10px}.pill{border:1px solid #294565;background:#13233a;color:#c7ddfa;border-radius:99px;padding:6px 10px;font-size:12px;display:inline-block;margin:0 0 15px}@media(max-width:480px){.card{padding:16px}.checks{grid-template-columns:1fr}.grid{grid-template-columns:1fr}}
+</style></head><body><main>
+<div class="brand">LOW<span>BATTERY</span></div><span class="pill">COTIZACIÓN ONLINE</span><h1>¿Cuánto vale<br>tu iPhone?</h1><p>Cuéntanos sobre tu equipo y recibe una estimación de compra en segundos.</p>
+<section class="card" id="formCard">
+<div class="step"><label for="model">Modelo</label><select id="model"></select></div>
+<div class="step"><label for="storage">Capacidad</label><select id="storage"><option>64 GB</option><option>128 GB</option><option>256 GB</option><option>512 GB</option><option>1 TB</option><option>2 TB</option></select></div>
+<div class="step"><label for="condition">Estado estético</label><select id="condition"><option value="0">Muy buen estado — sin daños relevantes</option><option value="20000">Marcas o rayones leves</option><option value="45000">Marcas visibles / golpes</option><option value="80000">Daño estético importante</option></select></div>
+<div class="step"><div class="rangeLine"><label for="battery">Salud de batería</label><strong id="batteryVal">90%</strong></div><input id="battery" type="range" min="50" max="100" value="90"><p class="note">La batería bajo el 80% puede aplicar un descuento.</p></div>
+<div class="step"><label>¿Presenta algún problema?</label><div class="checks">
+<label class="check"><input type="checkbox" value="45000" class="issue"> Pantalla dañada</label><label class="check"><input type="checkbox" value="35000" class="issue"> Face ID</label><label class="check"><input type="checkbox" value="25000" class="issue"> Cámara</label><label class="check"><input type="checkbox" value="20000" class="issue"> Problema de carga</label><label class="check"><input type="checkbox" value="30000" class="issue"> Botones / flex</label><label class="check"><input type="checkbox" value="50000" class="issue"> Otro problema</label>
+</div><p class="note">Descuentos de ejemplo: deben ajustarse según tus costos reales.</p></div>
+<button id="quoteBtn">Calcular cotización</button>
+</section>
+<section class="card result" id="result"><small>OFERTA ESTIMADA</small><div class="price" id="price">$0</div><p id="summary"></p><p class="note">El valor está sujeto a revisión presencial, verificación de funcionamiento, piezas y bloqueo de iCloud.</p><button id="wa">Continuar por WhatsApp</button><p class="note">Cotización referencial, no constituye oferta final.</p></section>
+<div class="footer">LowBattery · Compra de equipos usados</div></main>
+<script>
+// VALORES REFERENCIALES. Edita esta tabla para definir tus precios base de compra.
+// Los valores corresponden a estimaciones de ejemplo, no a precios reales de LowBattery.
+const basePrices={
+"iPhone 11":150000,"iPhone 11 Pro":190000,"iPhone 11 Pro Max":220000,
+"iPhone 12":190000,"iPhone 12 mini":160000,"iPhone 12 Pro":240000,"iPhone 12 Pro Max":280000,
+"iPhone 13":250000,"iPhone 13 mini":220000,"iPhone 13 Pro":330000,"iPhone 13 Pro Max":370000,
+"iPhone 14":300000,"iPhone 14 Plus":330000,"iPhone 14 Pro":400000,"iPhone 14 Pro Max":450000,
+"iPhone 15":360000,"iPhone 15 Plus":390000,"iPhone 15 Pro":480000,"iPhone 15 Pro Max":530000,
+"iPhone 16":430000,"iPhone 16 Plus":460000,"iPhone 16 Pro":570000,"iPhone 16 Pro Max":630000,
+"iPhone 17":500000,"iPhone 17 Pro":650000,"iPhone 17 Pro Max":720000
+};
+const model=document.getElementById('model');Object.keys(basePrices).forEach(m=>{let o=document.createElement('option');o.textContent=m;model.append(o)});
+const battery=document.getElementById('battery');battery.addEventListener('input',()=>document.getElementById('batteryVal').textContent=battery.value+'%');
+let currentQuote=0;
+document.getElementById('quoteBtn').onclick=()=>{let base=basePrices[model.value];let storageAdj={'64 GB':0,'128 GB':0,'256 GB':20000,'512 GB':45000,'1 TB':70000,'2 TB':90000}[document.getElementById('storage').value]||0;let aesthetics=Number(document.getElementById('condition').value);let batt=Number(battery.value);let battDeduction=batt<80?25000:batt<85?15000:batt<90?5000:0;let issueDeduction=[...document.querySelectorAll('.issue:checked')].reduce((s,x)=>s+Number(x.value),0);currentQuote=Math.max(0,base+storageAdj-aesthetics-battDeduction-issueDeduction);document.getElementById('price').textContent=currentQuote.toLocaleString('es-CL',{style:'currency',currency:'CLP',maximumFractionDigits:0});document.getElementById('summary').textContent=model.value+' · '+document.getElementById('storage').value+' · Batería '+batt+'%';document.getElementById('result').style.display='block';document.getElementById('result').scrollIntoView({behavior:'smooth'});};
+document.getElementById('wa').onclick=()=>{const phone='569XXXXXXXX';const msg=`Hola LowBattery! Cotizé mi equipo en la web.\nModelo: ${model.value}\nCapacidad: ${document.getElementById('storage').value}\nBatería: ${battery.value}%\nOferta estimada: ${document.getElementById('price').textContent}\nQuiero continuar.`;window.open('https://wa.me/'+phone+'?text='+encodeURIComponent(msg),'_blank')};
+</script></body></html>
